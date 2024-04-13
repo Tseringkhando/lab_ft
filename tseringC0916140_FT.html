@@ -1,3 +1,5 @@
+<!-- Tsering Khando Lama C0916140 -->
+<!-- FINAL TEST -->
 <html>
 <font size="8" color="green">Final test lab</font><br><br>
 Number of rows: <input type="text" id="t1" /><br><br>
@@ -15,20 +17,26 @@ Number of cols: <input type="text" id="t2" /><br><br>
 	function generateTable() {
 		var rows = document.getElementById('t1').value;
 		var cols = document.getElementById('t2').value;
+		// Check if the input values are positive integers
+		if (!isPositiveInteger(rows) || !isPositiveInteger(cols)) {
+			alert("Please enter positive integer values for rows and columns.");
+			return;
+		}
+		// Create the table
 		var table = '<table style="width: 100%; border: 1px solid black;">';
-		// applyTableStyles(table);
 		for (var i = 0; i < rows; i++) {
 			table += '<tr>';
 			for (var j = 0; j < cols; j++) {
-				table += '<td style="border: 1px solid black; text-align: center;">' + 'Cell(' + i + ',' + j + ')</td>';
+				table += '<td style="border: 1px solid black; text-align: center; padding:10px;">' + 'Cell(' + i + ',' + j + ')</td>';
 			}
 			table += '</tr>';
 		}
 		table += '</table>';
 		// remove all elements and add back the buttons only
-		document.body.innerHTML = '<button id="b2" onclick="addColumn()">Add Column</button> <button id="b3" onclick="addRow()">Add Row</button>' + table;
+		document.body.innerHTML = '<h3> To Add more Rows or Columns, You can use the buttons below: </h3><button class="btn-class" id="b2" onclick="addColumn()">Add Column</button> <button id="b3" class="btn-class" onclick="addRow()">Add Row</button>' + table;
 	}
 
+	// Function to add Column 
 	function addColumn() {
 		var table = document.querySelector('table');
 		var rows = table.querySelectorAll('tr');
@@ -44,30 +52,33 @@ Number of cols: <input type="text" id="t2" /><br><br>
 	}
 
 	function addRow() {
-    var table = document.querySelector('table');
-    var cols = table.rows[0].cells.length; // Getting the number of columns from the first row
-    var numRows = table.rows.length; // Getting the current number of rows in the table
-    var newRow = document.createElement('tr');
+		var table = document.querySelector('table');
+		var cols = table.rows[0].cells.length; // Getting the number of columns from the first row
+		var numRows = table.rows.length; // Getting the current number of rows in the table
+		var newRow = document.createElement('tr');
 
-    for (var i = 0; i < cols; i++) {
-        var newCell = document.createElement('td');
-        newCell.style.border = '1px solid black';
-        newCell.style.textAlign = 'center';
-        newCell.innerHTML = 'Cell(' + numRows + ',' + i + ')'; // numRows is used for the row index
-		applyCellStyles(newCell);
-        newRow.appendChild(newCell);
-    }
-
-    table.appendChild(newRow);
-}
+		for (var i = 0; i < cols; i++) {
+			var newRowsCol = document.createElement('td');
+			newRowsCol.style.border = '1px solid black';
+			newRowsCol.style.textAlign = 'center';
+			newRowsCol.innerHTML = 'Cell(' + numRows + ',' + i + ')'; // numRows is used for the row index
+			applyCellStyles(newRowsCol);
+			newRow.appendChild(newRowsCol);
+		}
+		table.appendChild(newRow);
+	}
 
 	// creating a helper function to add  style rows and cols
 	function applyCellStyles(cell) {
 		cell.style.border = '1px solid black';
 		cell.style.textAlign = 'center';
 		cell.style.padding = '10px';
-}
-
+	}
+	// Helper function to check if a value is a positive integer
+	function isPositiveInteger(value) {
+		var num = parseInt(value);
+		return num > 0 && num === parseFloat(value);
+	}
 </script>
 
 </html>
