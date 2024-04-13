@@ -16,7 +16,7 @@ Number of cols: <input type="text" id="t2" /><br><br>
 		var rows = document.getElementById('t1').value;
 		var cols = document.getElementById('t2').value;
 		var table = '<table style="width: 100%; border: 1px solid black;">';
-
+		// applyTableStyles(table);
 		for (var i = 0; i < rows; i++) {
 			table += '<tr>';
 			for (var j = 0; j < cols; j++) {
@@ -38,26 +38,35 @@ Number of cols: <input type="text" id="t2" /><br><br>
 			newCol.style.border = '1px solid black';
 			newCol.style.textAlign = 'center';
 			newCol.innerHTML = 'Cell(' + rowIndex + ',' + row.childElementCount + ')';
+			applyCellStyles(newCol);
 			row.appendChild(newCol);
 		});
 	}
 
 	function addRow() {
-		var table = document.querySelector('table');
-		var cols = table.querySelector('tr').childElementCount;
-		var newRow = document.createElement('tr');
+    var table = document.querySelector('table');
+    var cols = table.rows[0].cells.length; // Getting the number of columns from the first row
+    var numRows = table.rows.length; // Getting the current number of rows in the table
+    var newRow = document.createElement('tr');
 
-		for (var i = 0; i < cols; i++) {
-			var newColRow = document.createElement('td');
-			newColRow.style.border = '1px solid black';
-			newColRow.style.textAlign = 'center';
-			newColRow.innerHTML = 'Cell(' + table.childElementCount + ',' + i + ')';
-			newRow.appendChild(newColRow);
-		}
+    for (var i = 0; i < cols; i++) {
+        var newCell = document.createElement('td');
+        newCell.style.border = '1px solid black';
+        newCell.style.textAlign = 'center';
+        newCell.innerHTML = 'Cell(' + numRows + ',' + i + ')'; // numRows is used for the row index
+		applyCellStyles(newCell);
+        newRow.appendChild(newCell);
+    }
 
-		table.appendChild(newRow);
-	}
+    table.appendChild(newRow);
+}
 
+	// creating a helper function to add  style rows and cols
+	function applyCellStyles(cell) {
+		cell.style.border = '1px solid black';
+		cell.style.textAlign = 'center';
+		cell.style.padding = '10px';
+}
 
 </script>
 
