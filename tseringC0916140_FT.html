@@ -1,18 +1,64 @@
 <html>
-	<font size="8" color="green">Final test lab</font><br><br>
-	Number of rows: <input type="text" id="t1" /><br><br>
-	Number of cols: <input type="text" id="t2" /><br><br>
-	
-	<button id="b1" onclick="generateTable()">Generate Table</button><br><br>
-	
-	<button id="b2" onclick="addColumn()">Add Column</button>
-	
-	<button id="b3" onclick="addRow()">Add Row</button>
-		
-	<script language="javascript">
-		
-		//Your code goes here
-	
-	</script>
-	
+<font size="8" color="green">Final test lab</font><br><br>
+Number of rows: <input type="text" id="t1" /><br><br>
+Number of cols: <input type="text" id="t2" /><br><br>
+
+<button id="b1" onclick="generateTable()">Generate Table</button><br><br>
+
+<button id="b2" onclick="addColumn()">Add Column</button>
+
+<button id="b3" onclick="addRow()">Add Row</button>
+
+<script>
+
+	// Function to generate the table
+	function generateTable() {
+		var rows = document.getElementById('t1').value;
+		var cols = document.getElementById('t2').value;
+		var table = '<table style="width: 100%; border: 1px solid black;">';
+
+		for (var i = 0; i < rows; i++) {
+			table += '<tr>';
+			for (var j = 0; j < cols; j++) {
+				table += '<td style="border: 1px solid black; text-align: center;">' + 'Cell(' + i + ',' + j + ')</td>';
+			}
+			table += '</tr>';
+		}
+		table += '</table>';
+		// remove all elements and add back the buttons only
+		document.body.innerHTML = '<button id="b2" onclick="addColumn()">Add Column</button> <button id="b3" onclick="addRow()">Add Row</button>' + table;
+	}
+
+	function addColumn() {
+		var table = document.querySelector('table');
+		var rows = table.querySelectorAll('tr');
+
+		rows.forEach(function (row, rowIndex) {
+			var newCol = document.createElement('td');
+			newCol.style.border = '1px solid black';
+			newCol.style.textAlign = 'center';
+			newCol.innerHTML = 'Cell(' + rowIndex + ',' + row.childElementCount + ')';
+			row.appendChild(newCol);
+		});
+	}
+
+	function addRow() {
+		var table = document.querySelector('table');
+		var cols = table.querySelector('tr').childElementCount;
+		var newRow = document.createElement('tr');
+
+		for (var i = 0; i < cols; i++) {
+			var newColRow = document.createElement('td');
+			newColRow.style.border = '1px solid black';
+			newColRow.style.textAlign = 'center';
+			newColRow.innerHTML = 'Cell(' + table.childElementCount + ',' + i + ')';
+			newRow.appendChild(newColRow);
+		}
+
+		table.appendChild(newRow);
+	}
+
+
+</script>
+
 </html>
